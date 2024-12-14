@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="kr.co.gudi.mapper.BoardMapper">
+
+	<select id="listDo" resultType="kr.co.gudi.dto.BoardDTO">
+		SELECT * FROM bbs ORDER BY idx desc
+	</select>	
+	
+	<insert id="writeDo" parameterType="map" useGeneratedKeys="true" keyProperty="idx">
+		insert into bbs (subject,content,user_name)	
+			values (#{subject},#{content},#{user_name})
+	</insert>
+	
+	<select id="detailDo" parameterType="map">
+		select * from bbs where idx = #{idx} 
+	</select>
+	
+	<update id="bhit" parameterType="int">
+	    UPDATE bbs SET bHit = bHit + 1 WHERE idx = #{param1}
+	</update>
+
+	<delete id="boardDel" parameterType="int">
+	    DELETE FROM bbs WHERE idx = #{idx}
+	</delete>
+	
+	<update id="updateDo" parameterType="map">
+		update bbs set subject = #{subject} , content = #{content} where idx = #{idx}
+	</update>
+	
+</mapper>
